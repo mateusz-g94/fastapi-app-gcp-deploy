@@ -10,11 +10,14 @@ resource "google_cloud_run_service" "service" {
           container_port = 5000
         }
       }
+      container_concurrency = 0
     }
   }
 
   metadata {
     annotations = {
+      "autoscaling.knative.dev/maxScale" = 1500
+      "autoscaling.knative.dev/minScale" = 0
       "run.googleapis.com/ingress" = "all"
     }
   }
@@ -26,15 +29,10 @@ resource "google_cloud_run_service" "service" {
 
   lifecycle {
     ignore_changes = [
-      # metadata[0].annotations,
-      # template[0].metadata[0].annotations,
-      # template[0].metadata[0].name,
-      # status[0].latest_created_revision_name,
-      # status[0].latest_ready_revision_name,
-      template[0].spec[0].containers[0].image
+      template[0].spec[0].containers[0].image,
+      template[0].spec[0].container_concurrency
     ]
   }
-
 }
 
 resource "google_service_account" "service_account_apigw" {
@@ -56,10 +54,3 @@ resource "google_cloud_run_service_iam_member" "function_access" {
   role     = "roles/run.invoker"
   member   = "serviceAccount:${module.metrics_push.sa}"
 }
-
-# resource "google_cloud_run_service_iam_member" "allUsers" {
-#   service  = google_cloud_run_service.service.name
-#   location = google_cloud_run_service.service.location
-#   role     = "roles/run.invoker"
-#   member   = "allUsers"
-# }
