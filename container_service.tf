@@ -41,12 +41,20 @@ resource "google_service_account" "service_account_apigw" {
   account_id   = google_api_gateway_api.api_gw.api_id
 }
 
-resource "google_cloud_run_service_iam_member" "public_access" {
+resource "google_cloud_run_service_iam_member" "apigw_access" {
   service  = google_cloud_run_service.service.name
   location = google_cloud_run_service.service.location
   project  = google_cloud_run_service.service.project
   role     = "roles/run.invoker"
   member   = "serviceAccount:${google_service_account.service_account_apigw.email}"
+}
+
+resource "google_cloud_run_service_iam_member" "function_access" {
+  service  = google_cloud_run_service.service.name
+  location = google_cloud_run_service.service.location
+  project  = google_cloud_run_service.service.project
+  role     = "roles/run.invoker"
+  member   = "serviceAccount:${module.metrics_push.sa}"
 }
 
 # resource "google_cloud_run_service_iam_member" "allUsers" {
