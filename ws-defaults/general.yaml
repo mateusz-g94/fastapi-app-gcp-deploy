@@ -1,0 +1,9 @@
+environment: null
+project: mlops-sandbox-30052023-e020
+github_owner: mateusz-g94
+github_repository: fastapi-app
+branch_name: null
+location: europe-central2
+gcr_region: eu
+service_name: fastapi-app-0101
+image_name: eu.gcr.io/mlops-sandbox-30052023-e020/fastapi-app-0101@sha256:c21b0e2c06cc5d83441d8a137c7a19d976ad6fd3115fc2654501fb12ad49a9e7
