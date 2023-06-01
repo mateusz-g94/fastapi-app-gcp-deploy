@@ -1,14 +1,13 @@
 resource "google_api_gateway_api" "api_gw" {
   provider     = google-beta
-  api_id       = "fastapi0101apigw"
-  display_name = "API Gateway for AI App"
+  api_id       = "apigw${local.general.gcr_region}"
+  display_name = "API Gateway for AI App ${local.general.gcr_region}"
 }
 
 resource "google_api_gateway_api_config" "api_gw_con" {
   provider = google-beta
   api      = google_api_gateway_api.api_gw.api_id
-  #   api_config_id_prefix = local.api_config_id_prefix sufix prefix unikalny
-  display_name = "API Gateway Config for AI App"
+  display_name = "API Gateway Config for AI App ${local.general.gcr_region}"
 
   openapi_documents {
     document {
@@ -46,8 +45,8 @@ resource "google_api_gateway_gateway" "gw" {
 
   api_config = google_api_gateway_api_config.api_gw_con.id
 
-  gateway_id   = "fastapi0101apigwgw"
-  display_name = "API Gateway Gateway for AI App"
+  gateway_id   = "gw${local.general.gcr_region}"
+  display_name = "API Gateway Gateway for AI App ${local.general.gcr_region}"
 
   depends_on = [google_api_gateway_api_config.api_gw_con]
 }

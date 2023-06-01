@@ -5,7 +5,7 @@ resource "google_cloud_run_service" "service" {
   template {
     spec {
       containers {
-        image = local.general.image_name
+        image = local.general.init_image_name
         ports {
           container_port = 5000
         }
@@ -16,8 +16,8 @@ resource "google_cloud_run_service" "service" {
 
   metadata {
     annotations = {
-      "autoscaling.knative.dev/maxScale" = 1500
-      "autoscaling.knative.dev/minScale" = 0
+      # "autoscaling.knative.dev/maxScale" = 1500
+      # "autoscaling.knative.dev/minScale" = 0
       "run.googleapis.com/ingress" = "all"
     }
   }
