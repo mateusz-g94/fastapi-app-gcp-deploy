@@ -1,12 +1,12 @@
-terraform {
-  backend "local" {
-    path = "terraform.tfstate"
-  }
-}
-
 # terraform {
-#   backend "gcs" {
-#     bucket  = "tf-state-prod"
-#     prefix  = "terraform/state"
+#   backend "local" {
+#     path = "terraform.tfstate"
 #   }
 # }
+
+terraform {
+  backend "gcs" {
+    bucket = "tfstate-01062023"
+    prefix = "terraform/state"
+  }
+}

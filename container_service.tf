@@ -14,10 +14,10 @@ resource "google_cloud_run_service" "service" {
   }
 
   metadata {
-      annotations = {
-        "run.googleapis.com/ingress"      = "all"
-      }
+    annotations = {
+      "run.googleapis.com/ingress" = "all"
     }
+  }
 
   traffic {
     percent         = 100
@@ -38,7 +38,7 @@ resource "google_cloud_run_service" "service" {
 }
 
 resource "google_service_account" "service_account_apigw" {
-  account_id   = google_api_gateway_api.api_gw.api_id
+  account_id = google_api_gateway_api.api_gw.api_id
 }
 
 resource "google_cloud_run_service_iam_member" "apigw_access" {

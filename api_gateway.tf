@@ -1,18 +1,18 @@
 resource "google_api_gateway_api" "api_gw" {
-  provider = google-beta
+  provider     = google-beta
   api_id       = "fastapi0101apigw"
   display_name = "API Gateway for AI App"
 }
 
 resource "google_api_gateway_api_config" "api_gw_con" {
-    provider = google-beta
-  api           = google_api_gateway_api.api_gw.api_id
-#   api_config_id_prefix = local.api_config_id_prefix sufix prefix unikalny
-  display_name  = "API Gateway Config for AI App"
+  provider = google-beta
+  api      = google_api_gateway_api.api_gw.api_id
+  #   api_config_id_prefix = local.api_config_id_prefix sufix prefix unikalny
+  display_name = "API Gateway Config for AI App"
 
   openapi_documents {
     document {
-      path     = "./src/apispec.yaml"
+      path = "./src/apispec.yaml"
       contents = base64encode(<<-EOF
         swagger: '2.0'
         info:
@@ -35,16 +35,16 @@ resource "google_api_gateway_api_config" "api_gw_con" {
                             description: OK
 
     EOF
-    )
+      )
     }
   }
 }
 
 resource "google_api_gateway_gateway" "gw" {
-    provider = google-beta
-  region     = "europe-west1"
+  provider = google-beta
+  region   = "europe-west1"
 
-  api_config   = google_api_gateway_api_config.api_gw_con.id
+  api_config = google_api_gateway_api_config.api_gw_con.id
 
   gateway_id   = "fastapi0101apigwgw"
   display_name = "API Gateway Gateway for AI App"

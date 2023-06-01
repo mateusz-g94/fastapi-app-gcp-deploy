@@ -1,0 +1,64 @@
+{
+    "category": "CUSTOM",
+    "dashboardFilters": [],
+    "displayName": "AI App Dashboard",
+    "labels": {},
+    "mosaicLayout": {
+      "columns": 12,
+      "tiles": [
+        {
+          "height": 5,
+          "widget": {
+            "scorecard": {
+              "gaugeView": {
+                "lowerBound": 0,
+                "upperBound": 10
+              },
+              "thresholds": [
+                {
+                  "color": "RED",
+                  "direction": "ABOVE",
+                  "label": "",
+                  "value": 8
+                },
+                {
+                  "color": "RED",
+                  "direction": "BELOW",
+                  "label": "",
+                  "value": 0
+                },
+                {
+                  "color": "YELLOW",
+                  "direction": "ABOVE",
+                  "label": "",
+                  "value": 5
+                },
+                {
+                  "color": "YELLOW",
+                  "direction": "BELOW",
+                  "label": "",
+                  "value": 0
+                }
+              ],
+              "timeSeriesQuery": {
+                "apiSource": "DEFAULT_CLOUD",
+                "timeSeriesFilter": {
+                  "aggregation": {
+                    "alignmentPeriod": "60s",
+                    "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+                    "groupByFields": [],
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  },
+                  "filter": "metric.type=\"custom.googleapis.com/testing/ml_clustering_http_request_duration_seconds\" resource.type=\"global\""
+                }
+              }
+            },
+            "title": "AI Endpoint median duration"
+          },
+          "width": 7,
+          "xPos": 0,
+          "yPos": 0
+        }
+      ]
+    }
+  }
