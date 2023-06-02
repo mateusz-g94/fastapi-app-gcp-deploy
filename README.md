@@ -1,3 +1,41 @@
+## Description
+Infrastructure for deployment simple FastAPI application to GCP cloud.
+
+## How to apply
+
+1. Enable gcloud services
+```
+gcloud services enable servicenetworking.googleapis.com
+gcloud services enable cloudresourcemanager.googleapis.com
+gcloud services enable cloudbuild.googleapis.com
+gcloud services enable containerregistry.googleapis.com 
+gcloud services enable run.googleapis.com 
+gcloud services enable sourcerepo.googleapis.com    
+gcloud services enable compute.googleapis.com
+```
+
+2. Push initial image to GCP
+https://github.com/mateusz-g94/fastapi-app
+
+3. Update config file named config.yaml in [workspace] folders  
+
+4. Terraform 
+
+``` {terraform}
+terraform init
+terraform workspace new [workspace]
+terraform workspace select [workspace]
+terraform plan
+terraform apply 
+```
+
+Additional Info:
+- Available workspaces: ws-dev-us-east1, ws-dev-europe-west1, ws-prd-us-east1, ws-prd-europe-west1
+- assumption: the backend bucket is created
+- assumption: access keys are exported with all permissions and rols
+- module ./modules/observabiliti initial author: https://github.com/AckeeCZ/terraform-gcp-prometheus-to-monitoring - I upgraded and costumize this module for my own need (change in cloud function go code)
+
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
